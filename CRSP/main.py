@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Apr 12 10:32:52 2022
+Created on Fri Jun  7 10:41:46 2024
 
-@author: 20771401
+@author: katan
 """
 
 from DataClass import Data
@@ -12,8 +12,6 @@ from Callback import Callback_lazy, Callback_user
 import igraph as ig
 import pandas as pd
 import time
-
-#%% Input data
 
 def calculate_p_star(visited_vertices, total_vertices):
     return (len(visited_vertices) / total_vertices) * 100
@@ -43,28 +41,13 @@ def calculate_percent_ub(solution, cb_user):
     
     percent_ub = (ub / optimal_value) * 100
     
-    # Calculate the percentage ratio %-UB
-    # percent_ub = ((ub - optimal_value) / optimal_value) * 100
-    # print(percent_ub)
     return percent_ub
-
-def format_time(total_seconds):
-    """"
-    Convert a float value representing seconds into hh:mm:ss format.
-    
-    :param total_seconds: Time in seconds as a float.
-    :return: Time in hh:mm:ss format as a string.
-    """
-    hours, remainder = divmod(total_seconds, 3600)
-    minutes, seconds = divmod(remainder, 60)
-    
-    return f'{int(hours):02}:{int(minutes):02}:{int(seconds):02}'
 
 n = 40
 dataset = 1
 width = 100
 
-V_values = [125]#[50, 75, 100, 125, 150, 175, 200]
+V_values = [50, 75, 100, 125, 150, 175, 200]
 alpha_values = [3, 5, 7, 9]
 num_instances = 10
 
@@ -139,10 +122,7 @@ for V in V_values:
                     continue  # Skip the rest of the loop for this instance
                 
                 # Check if a solution is found
-                if solution:
-                    # Print the objective value
-                    #print("Objective value:", solution.get_objective_value())
-                    
+                if solution:                    
                     current_objective_value = solution.get_objective_value()
                     print("Objective value:", current_objective_value)
                     
@@ -260,38 +240,3 @@ for best in best_sol:
 #%% Excel
 
 df_final.to_excel('experiment_results.xlsx', index=False)
-
-#%% Components
-
-#sol = solution.get_value_dict(x)
-#x_solution = solution.get_value_dict(x)
-#components = [[7,1,6,9,5,8],[2,4,10,3]]
-
-#for component in components: 
-#    mdl.add_constraint(mdl.sum(x[i,j] for (i,j) in get_cutset(component,E))>=2)
-    
-#solution = mdl.solve(log_output = True)
-#print(solution)
-#%% Connected Components
-
-
-#%%
-
-# # Initial solve to get the solution
-# solution = mdl.solve(log_output=True)
-# component_list = find_connected_components(solution, E, V)
-# while len(component_list) > 1:
-#     for component in component_list: 
-#         mdl.add_constraint(mdl.sum(x[i,j] for (i,j) in get_cutset(component, E)) >= 2)
-        
-#     solution = mdl.solve(log_output=True)
-    
-#     # Find the connected components
-#     component_list = find_connected_components(solution, E, V)
-
-# # Add the constraints for each component
- 
-
-
-#%% Output
-
