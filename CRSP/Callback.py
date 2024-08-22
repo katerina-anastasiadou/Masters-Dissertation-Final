@@ -167,7 +167,9 @@ class Callback_user(ConstraintCallbackMixin, UserCutCallback):
                         ct_cutset = self.mdl.model_instance.sum(self.mdl.x[i, j] for (i, j) in get_cutset(component_unmapped, self.problem_data.E))
                         ct = ct_cutset >= 2 * self.mdl.model_instance.sum(self.mdl.y[i, j] for j in component_unmapped)
                         ct_cpx = self.linear_ct_to_cplex(ct)
-                        self.add(ct_cpx[0], ct_cpx[1], ct_cpx[2])                    
+                        self.add(ct_cpx[0], ct_cpx[1], ct_cpx[2])                 
+
+                        self.sec += 1  # Increment sec counter
         else:
             # print('min cut here')
             capacity = [max(1, sol_x.get_value(self.mdl.x[i, j])) for (i, j) in edges_in_solution]
