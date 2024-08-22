@@ -36,39 +36,16 @@ solution = mdl.model_instance.solve(log_output=True)
 
 plot_sol(p,mdl)
 
-
-
-#%% Components
-
-#sol = solution.get_value_dict(x)
-#x_solution = solution.get_value_dict(x)
-#components = [[7,1,6,9,5,8],[2,4,10,3]]
-
-#for component in components: 
-#    mdl.add_constraint(mdl.sum(x[i,j] for (i,j) in get_cutset(component,E))>=2)
-    
-#solution = mdl.solve(log_output = True)
-#print(solution)
-#%% Connected Components
-
-
 #%%
 
 # Initial solve to get the solution
-solution = mdl.solve(log_output=True)
-component_list = find_connected_components(solution, E, V)
-while len(component_list) > 1:
-    for component in component_list: 
-        mdl.add_constraint(mdl.sum(x[i,j] for (i,j) in get_cutset(component, E)) >= 2)
+# solution = mdl.solve(log_output=True)
+# component_list = find_connected_components(solution, E, V)
+# while len(component_list) > 1:
+#     for component in component_list: 
+#         mdl.add_constraint(mdl.sum(x[i,j] for (i,j) in get_cutset(component, E)) >= 2)
         
-    solution = mdl.solve(log_output=True)
+#     solution = mdl.solve(log_output=True)
     
-    # Find the connected components
-    component_list = find_connected_components(solution, E, V)
-
-# Add the constraints for each component
- 
-
-
-#%% Output
-
+#     # Find the connected components
+#     component_list = find_connected_components(solution, E, V) 
