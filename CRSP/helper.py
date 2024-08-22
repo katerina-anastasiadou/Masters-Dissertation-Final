@@ -108,35 +108,3 @@ def generate_instance(V, alpha):
     np.fill_diagonal(d_matrix, 0)  # dii = 0 for all i in V
     
     return vertices, l_matrix, c_matrix, d_matrix
-    
-# def generate_vertices(V):
-#     return [(random.randint(0, 1000), random.randint(0, 1000)) for _ in range(V)]
-
-# def euclidean_distance(v1, v2):
-#     return math.ceil(math.sqrt((v1[0] - v2[0]) ** 2 + (v1[1] - v2[1]) ** 2))
-
-# def generate_distance_matrix(vertices):
-#     V = len(vertices)
-#     distance_matrix = [[0 if i == j else euclidean_distance(vertices[i], vertices[j]) for j in range(V)] for i in range(V)]
-#     return distance_matrix
-
-# def define_costs(distance_matrix, beta):
-#     V = len(distance_matrix)
-#     c = [[distance_matrix[i][j] for j in range(V)] for i in range(V)]
-#     d = [[beta * distance_matrix[i][j] for j in range(V)] for i in range(V)]
-#     for i in range(V):
-#         d[i][i] = 0
-#     return c, d
-
-# def generate_instances(num_instances, vertices_range, betas):
-#     all_instances = []
-#     for V in vertices_range:
-#         for beta in betas:
-#             for _ in range(num_instances):
-#                 vertices = generate_vertices(V)
-#                 distance_matrix = generate_distance_matrix(vertices)
-#                 c, d = define_costs(distance_matrix, beta)
-#                 instance = {'V': V, 'beta': beta, 'vertices': vertices, 'distance_matrix': distance_matrix, 'c': c, 'd': d}
-#                 all_instances.append(instance)
-#     return all_instances
-
