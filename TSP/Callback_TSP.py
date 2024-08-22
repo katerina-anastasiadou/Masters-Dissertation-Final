@@ -35,7 +35,6 @@ class Callback_lazy(ConstraintCallbackMixin, LazyConstraintCallback):
         sol_x = self.make_solution_from_vars(self.mdl.x.values())
     
         edges_in_solution = [(i, j) for (i, j) in self.problem_data.E if sol_x.get_value(self.mdl.x[i,j]) > 0.9]
-        # component_list = find_connected_components(self.model_instance, sol_x, self.problem_data)
         
         g = ig.Graph()
         g.add_vertices(len(self.problem_data.V))  # Adding the number of vertices
@@ -49,7 +48,7 @@ class Callback_lazy(ConstraintCallbackMixin, LazyConstraintCallback):
       
         if len(component_list) > 1:
             for component in component_list:
-                    # Connectivity constraint
+                # Connectivity constraint
                 if len(component)>2 and 0 not in component:
                    print(component)
                    ct_cutset = self.mdl.model_instance.sum(self.mdl.x[i, j] for (i, j) in get_cutset(component, self.problem_data.E))
@@ -82,10 +81,8 @@ class Callback_user(ConstraintCallbackMixin, UserCutCallback):
         print('running user callback')
         self.num_calls += 1
         sol_x = self.make_solution_from_vars(self.mdl.x.values())
-        # print(sol_x)
-        edges_in_solution = [(i, j) for (i, j) in self.problem_data.E if sol_x.get_value(self.mdl.x[i,j]) > 0.0000001]
         
-        # component_list = find_connected_components(self.model_instance, sol_x, self.problem_data)
+        edges_in_solution = [(i, j) for (i, j) in self.problem_data.E if sol_x.get_value(self.mdl.x[i,j]) > 0.0000001]
         
         g = ig.Graph()
         g.add_vertices(len(self.problem_data.V))  # Adding the number of vertices
@@ -99,7 +96,7 @@ class Callback_user(ConstraintCallbackMixin, UserCutCallback):
       
         if len(component_list) > 1:
             for component in component_list:
-                    # Connectivity constraint
+                # Connectivity constraint
                 if len(component)>2 and 0 not in component:
                    print(component)
                    ct_cutset = self.mdl.model_instance.sum(self.mdl.x[i, j] for (i, j) in get_cutset(component, self.problem_data.E))
@@ -120,7 +117,7 @@ class Callback_user(ConstraintCallbackMixin, UserCutCallback):
             if value < 2:
                 print('violated sec add cut')
                 for component in partition:
-                        # Connectivity constraint
+                    # Connectivity constraint
                     if len(component)>2 and 0 not in component:
                        print(component)
                        ct_cutset = self.mdl.model_instance.sum(self.mdl.x[i, j] for (i, j) in get_cutset(component, self.problem_data.E))
@@ -128,4 +125,3 @@ class Callback_user(ConstraintCallbackMixin, UserCutCallback):
                        ct =  ct_cutset >= 2
                        ct_cpx = self.linear_ct_to_cplex(ct)
                        self.add(ct_cpx[0],ct_cpx[1],ct_cpx[2])
-            # solve a global min cut problem and if the value of the cut is less than 2 we have a violated cut
